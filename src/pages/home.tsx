@@ -8,9 +8,14 @@ const LandingStyle = styled.div`
   text-align: left;
 `;
 
+interface Contact {
+  name: string[];
+  tel: string;
+}
+
 function Home() {
   const { t } = useTranslation("home.lang", { useSuspense: true });
-  const [contacts, setContacts] = useState();
+  const [contacts, setContacts] = useState<Contact[]>([]);
 
   return (
     <LandingStyle>
@@ -27,6 +32,16 @@ function Home() {
       )}
       <h1>{t("title")}</h1>
       <p>{t("subtitle")}</p>
+
+      {contacts &&
+        contacts.map((x) => {
+          return (
+            <div key={x.tel}>
+              <p>{x.tel}</p>
+              <p>{x.name[0]}</p>
+            </div>
+          );
+        })}
     </LandingStyle>
   );
 }
